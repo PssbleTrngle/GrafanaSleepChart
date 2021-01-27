@@ -1,0 +1,38 @@
+{
+  "type": "panel",
+  "name": "day-chart",
+  "id": "pssble-trngle-day-chart",
+  "info": {
+    "description": "Displays timespans as bars on a time chart",
+    "author": {
+      "name": "PssbleTrngle",
+      "url": "https://github.com/PssbleTrngle"
+    },
+    "keywords": [
+      "panel",
+      "day",
+      "bar"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/grafana/simple-react-panel"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/grafana/simple-react-panel/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaVersion": "7.0.x",
+    "plugins": []
+  }
+}
