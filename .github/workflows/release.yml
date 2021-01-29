@@ -1,15 +1,13 @@
 name: Release
 
 on:
-  workflow_dispatch:
-  push:
-    branches: [main]
-    paths-ignore:
-      - docs/**
-      - LICENSE
+  pull_request:
+    types: [ closed ]
+    branches: [ main ]
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'release')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,3 +23,32 @@ jobs:
         run: npx @grafana/toolkit plugin:sign --rootUrls https://data.somethingcatchy.net
         env:
           GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }}
+
+      - name: ZIP Plugin
+        run: zip plugin.zip dist -r
+
+      - uses: PssbleTrngle/VersionManagment@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+        id: version
+
+      - name: Create Release
+        id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.next }}
+          release_name: ${{ steps.version.outputs.next }}
+          body: ${{ github.event.pull_request.body }}
+          prerelease: ${{ steps.version.outputs.type == 'alpha' }}
+
+      - name: Upload Mod Jar
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: plugin.zip
+          asset_name: day-chart-${{ steps.version.outputs.next }}.zip
+          asset_content_type: application/zip
