@@ -13,7 +13,12 @@ const Series = ({ canvas, data, index }: SeriesProps) => {
    const theme = useTheme()
    const [hovered, setHovered] = useState<[string, number]>()
 
-   const colors = [theme.palette.blue77, theme.palette.greenBase, theme.palette.yellow, theme.palette.red88]
+   const colors = [
+      theme.palette.blue77,
+      theme.palette.greenBase,
+      theme.palette.yellow,
+      theme.palette.red88
+   ]
 
    const [startField, endField] = ['start', 'end'].map(k => {
       const field = data.fields.find(s => s.name === k)
