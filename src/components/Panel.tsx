@@ -18,7 +18,7 @@ const Panel: React.FC<Props> = ({ options, data, width, height }) => {
    const styles = getStyles()
 
    const { from, to } = data.timeRange
-   const days = useMemo(() => to.diff(from, 'days'), [data.timeRange])
+   const days = useMemo(() => to.diff(from, 'days'), [to, from])
 
    const axisHeight = 50
 

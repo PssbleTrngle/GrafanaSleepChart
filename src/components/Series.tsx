@@ -17,7 +17,9 @@ const Series = ({ canvas, data, index }: SeriesProps) => {
 
    const [startField, endField] = ['start', 'end'].map(k => {
       const field = data.fields.find(s => s.name === k)
-      if (!field) throw new Error(`Field '${k}' missing`)
+      if (!field) {
+         throw new Error(`Field '${k}' missing`)
+      }
       return field
    })
 

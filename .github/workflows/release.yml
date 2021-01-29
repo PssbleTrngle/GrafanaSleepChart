@@ -21,3 +21,7 @@ jobs:
       - name: Build plugin
         run: yarn build
 
+      - name: Sign Plugin
+        run: npx @grafana/toolkit plugin:sign --rootUrls https://data.somethingcatchy.net
+        env:
+          GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }}
